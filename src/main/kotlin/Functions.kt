@@ -1,3 +1,5 @@
+import util.hello
+
 fun main() {
 
     //function with no parameter and return type
@@ -28,6 +30,35 @@ fun main() {
     // function with default arguments
     hello2()
     hello2("World")
+
+    var total = currentExchange(100.0, 10.0, 5.0)
+    println(total)
+    // with named parameters
+    var total1 = currentExchange(dollar = 100.0, currentRate = 10.0, charges = 6.0)
+    println(total1)
+    total1 = currentExchange(currentRate = 10.0, charges = 6.0, dollar = 100.0)
+    println(total1)
+
+    // functions and vararg
+    varargString("ett", "tva", "tre")
+    varargString("Sat", "Sun", "Mon")
+    addVararg(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+// vararg with tricky other arguments, vararg must be last declared to get no errors is good practice
+// but not necessary but we must call the rest of variables by name
+    trickyVararg(4, 5, 1, 2, 3)
+    trickyVararg02(1, 2, 3, a = 4, b = 5)
+
+// use package functions you can use it with package name or to an import: util.hello or with import wildcard util.*
+    hello()
+    println("Power Function")
+    println(util.myPow(5.0, 3.0))
+    println("Random number generator")
+    var range = 1..50
+    for (i in 1..5)
+        println(util.myRandom(range))
+    println("Value of PI is ${util.PI}")
+    println("Area of circle ${util.areaOfCircle(4.0)}")
 
 }
 
@@ -72,4 +103,46 @@ fun getMax(x: Int, y: Int) : String =
 // function with default arguments
 fun hello2(message: String = "Kotlin") {
     println("Hello $message")
+}
+
+fun currentExchange(dollar: Double, currentRate: Double, charges: Double) : Double {
+    var total = dollar * currentRate
+    var fees = total * charges / 100
+    total -= fees
+    return total
+}
+
+// functions and vararg
+fun varargString(vararg list : String) {
+    for (item in list) {
+        println(item)
+    }
+}
+
+fun addVararg(vararg list: Int) {
+    var total = 0
+    for (item in list) {
+        total += item
+    }
+    println("Total: $total")
+}
+
+// vararg with tricky other arguments, vararg must be last declared to get no errors is good practice
+// but not necessary but we must call the rest of variables by name
+fun trickyVararg(a: Int, b: Int, vararg  list: Int) {
+    var total = 0
+    for (item in list) {
+        total += item
+    }
+    println("Total $total")
+    println("a = $a, b = $b")
+}
+
+fun trickyVararg02(vararg list: Int, a: Int, b: Int) {
+    var total = 0
+    for (item in list) {
+        total += item
+    }
+    println("Total: $total")
+    println("a = $a, b = $b")
 }
