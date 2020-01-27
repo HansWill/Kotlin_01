@@ -50,7 +50,7 @@ fun main() {
     var len = message?.length ?: 0
     println("value of length is $len")
     message = "Hello"
-    len = message?.length ?: 0
+    len = message.length ?: 0
     println("value of length is $len")
 
     // Convert from Byte to Float
